@@ -227,7 +227,9 @@
 			}
 			function hideStatusLogo(){
 				var img=document.getElementById("statusEnterLogo");
-				img.remove();
+				if(img!=null ){
+					img.remove();
+				}
 			}
 
 			function displayFailureNotice(err) {
