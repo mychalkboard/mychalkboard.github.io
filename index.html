@@ -203,14 +203,13 @@
 			function setStatusNotice(text) {
 				while (statusNotice.lastChild) {
 					statusNotice.removeChild(statusNotice.lastChild);
-					hideStatusLogo();
 				}
 				var lines = text.split('\n');
 				lines.forEach((line) => {
 					statusNotice.appendChild(document.createTextNode(line));
 					statusNotice.appendChild(document.createElement('br'));
-					hideStatusLogo();
 				});
+				hideStatusLogo()
 			};
 
 
@@ -251,6 +250,7 @@
 							if (current === total) {
 								// wait for progress bar animation
 								setTimeout(() => {
+									hideStatusLogo();
 									setStatusMode('hidden');
 								}, 500);
 							}
