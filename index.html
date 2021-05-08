@@ -226,7 +226,8 @@
 				document.body.appendChild(statusLogoImg);
 			}
 			function hideStatusLogo(){
-				document.getElementById("statusEnterLogo").remove();
+				var img=document.getElementById("statusEnterLogo");
+				img.parentNode.removeChild(img);
 			}
 
 			function displayFailureNotice(err) {
