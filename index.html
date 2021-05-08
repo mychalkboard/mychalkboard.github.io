@@ -152,6 +152,8 @@
 			var initializing = true;
 			var statusMode = 'hidden';
 
+			var statusLogoImg=document.createElement("img");
+
 			var animationCallbacks = [];
 			function animate(time) {
 				animationCallbacks.forEach(callback => callback(time));
@@ -209,6 +211,22 @@
 				});
 			};
 
+
+			function showStatusLogo(){
+				var statusLogoImg = document.createElement("img");
+    			statusLogoImg.src = "enter_logo.png";
+				statusLogoImg.style.position="absolute";
+				statusLogoImg.style.top="0";
+				statusLogoImg.style.bottom="0";
+				statusLogoImg.style.left="0";
+				statusLogoImg.style.right="0";
+				statusLogoImg.style.margin="auto";
+				document.body.appendChild(statusLogoImg);
+			}
+			function hideStatusLogo(){
+				document.body.removeChild(statusLogoImg);
+			}
+
 			function displayFailureNotice(err) {
 				var msg = err.message || err;
 				console.error(msg);
@@ -220,12 +238,13 @@
 			if (!Engine.isWebGLAvailable()) {
 				displayFailureNotice('WebGL not available');
 			} else {
-				setStatusMode('indeterminate');
+				setStatusMode('hidden');
+				showStatusLogo();
 				engine.startGame({
 					'onProgress': function (current, total) {
 						if (total > 0) {
 							statusProgressInner.style.width = current/total * 100 + '%';
-							setStatusMode('progress');
+							//setStatusMode('indeterminate');
 							if (current === total) {
 								// wait for progress bar animation
 								setTimeout(() => {
@@ -238,6 +257,7 @@
 					},
 				}).then(() => {
 					setStatusMode('hidden');
+					hideStatusLogo();
 					initializing = false;
 				}, displayFailureNotice);
 			}
